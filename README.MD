@@ -32,15 +32,15 @@ deno run --allow-net main.ts
 
 假设：
 - 你的代理服务域名：`my-proxy.deno.dev`
-- 目标网站域名：`ygpy.net`
+- 目标网站域名：`目标地址`
 
 则：
 ```
-https://my-proxy.deno.dev/* -> https://ygpy.net/*
+https://my-proxy.deno.dev/* -> https://目标地址/*
 
 例如：
-https://my-proxy.deno.dev/api/data -> https://ygpy.net/api/data
-https://my-proxy.deno.dev/page?id=1 -> https://ygpy.net/page?id=1
+https://my-proxy.deno.dev/api/data -> https://目标地址/api/data
+https://my-proxy.deno.dev/page?id=1 -> https://目标地址/page?id=1
 ```
 
 所有的请求方法（GET、POST等）和请求体都会被保持不变地转发。
@@ -48,7 +48,7 @@ https://my-proxy.deno.dev/page?id=1 -> https://ygpy.net/page?id=1
 ## 配置说明
 在 `main.ts` 中：
 ```typescript
-const TARGET_HOST = "ygpy.net"; // 修改为你要代理的目标网站
+const TARGET_HOST = "目标地址"; // 修改为你要代理的目标网站
 ```
 
 ## 注意事项

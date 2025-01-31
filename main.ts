@@ -1,4 +1,4 @@
-const TARGET_HOST = "ygpy.net"; // 替换为需要代理的目标网站
+const TARGET_HOST = "目标地址"; // 替换为需要代理的目标网站
 
 async function handleRequest(request: Request): Promise<Response> {
   // 从原始请求中获取 URL

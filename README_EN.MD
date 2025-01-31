@@ -32,15 +32,15 @@ The proxy server automatically replaces the hostname in requests with the target
 
 Assume:
 - Your proxy service domain: `my-proxy.deno.dev`
-- Target website domain: `ygpy.net`
+- Target website domain: `target-host`
 
 Then:
 ```
-https://my-proxy.deno.dev/* -> https://ygpy.net/*
+https://my-proxy.deno.dev/* -> https://target-host/*
 
 Examples:
-https://my-proxy.deno.dev/api/data -> https://ygpy.net/api/data
-https://my-proxy.deno.dev/page?id=1 -> https://ygpy.net/page?id=1
+https://my-proxy.deno.dev/api/data -> https://target-host/api/data
+https://my-proxy.deno.dev/page?id=1 -> https://target-host/page?id=1
 ```
 
 All request methods (GET, POST, etc.) and request bodies are forwarded unchanged.
@@ -48,7 +48,7 @@ All request methods (GET, POST, etc.) and request bodies are forwarded unchanged
 ## Configuration
 In `main.ts`:
 ```typescript
-const TARGET_HOST = "ygpy.net"; // Change to your target website
+const TARGET_HOST = "target-host"; // Change to your target website
 ```
 
 ## Important Notes
