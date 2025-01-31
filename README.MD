@@ -5,11 +5,10 @@
 
 ## 主要特性
 - 支持代理任意网站
-- 支持所有 HTTP 方法（GET, POST, PUT 等）
-- 内置 CORS 支持，允许跨域访问
-- 自动处理请求头和响应头
-- 错误处理和安全机制
-- 部署简单，使用 Deno Deploy 一键部署
+- 保持原始请求的完整性
+- 自动替换目标域名
+- 支持所有 HTTP 方法（GET, POST, PUT等）
+- 简单高效的实现
 
 ## 本地开发
 1. 确保已安装 Deno
@@ -28,36 +27,29 @@ deno run --allow-net main.ts
 5. 点击 Save & Deploy
 6. 等待部署完成，你会获得一个 `xxx.deno.dev` 的域名
 
-## 使用示例
-假设你的 Deno Deploy 域名是 `my-proxy.deno.dev`，目标网站是 `example.com`：
+## 工作原理
+代理服务器会自动将请求中的域名替换为目标网站域名，同时保持URL的其他部分不变：
 
-1. 访问首页：
+假设：
+- 你的代理服务域名：`my-proxy.deno.dev`
+- 目标网站域名：`ygpy.net`
+
+则：
 ```
-https://my-proxy.deno.dev/
+https://my-proxy.deno.dev/* -> https://ygpy.net/*
+
+例如：
+https://my-proxy.deno.dev/api/data -> https://ygpy.net/api/data
+https://my-proxy.deno.dev/page?id=1 -> https://ygpy.net/page?id=1
 ```
 
-2. 访问目标网站的具体页面：
-```
-https://my-proxy.deno.dev/path/to/page
-=> 将代理到：https://example.com/path/to/page
-```
-
-3. 带查询参数的请求：
-```
-https://my-proxy.deno.dev/search?q=test
-=> 将代理到：https://example.com/search?q=test
-```
+所有的请求方法（GET、POST等）和请求体都会被保持不变地转发。
 
 ## 配置说明
 在 `main.ts` 中：
 ```typescript
-const TARGET_HOST = "example.com"; // 修改为你要代理的目标网站
+const TARGET_HOST = "ygpy.net"; // 修改为你要代理的目标网站
 ```
-
-## 安全说明
-- 代理服务器会过滤掉一些敏感的请求头
-- 所有请求都启用了 CORS 支持
-- 建议在生产环境中添加适当的访问控制
 
 ## 注意事项
 1. 确保你有权限访问和代理目标网站

@@ -5,11 +5,10 @@ A universal website proxy service implemented with Deno, capable of proxying acc
 
 ## Key Features
 - Support proxying any website
+- Maintain original request integrity
+- Automatic target domain replacement
 - Support all HTTP methods (GET, POST, PUT, etc.)
-- Built-in CORS support for cross-origin access
-- Automatic handling of request and response headers
-- Error handling and security mechanisms
-- Simple deployment with Deno Deploy
+- Simple and efficient implementation
 
 ## Local Development
 1. Ensure Deno is installed
@@ -28,36 +27,29 @@ deno run --allow-net main.ts
 5. Click Save & Deploy
 6. Wait for deployment to complete, you'll get a `xxx.deno.dev` domain
 
-## Usage Examples
-Assuming your Deno Deploy domain is `my-proxy.deno.dev` and target website is `example.com`:
+## How It Works
+The proxy server automatically replaces the hostname in requests with the target website's hostname while keeping the rest of the URL unchanged:
 
-1. Access homepage:
+Assume:
+- Your proxy service domain: `my-proxy.deno.dev`
+- Target website domain: `ygpy.net`
+
+Then:
 ```
-https://my-proxy.deno.dev/
+https://my-proxy.deno.dev/* -> https://ygpy.net/*
+
+Examples:
+https://my-proxy.deno.dev/api/data -> https://ygpy.net/api/data
+https://my-proxy.deno.dev/page?id=1 -> https://ygpy.net/page?id=1
 ```
 
-2. Access specific pages on target website:
-```
-https://my-proxy.deno.dev/path/to/page
-=> Proxies to: https://example.com/path/to/page
-```
-
-3. Requests with query parameters:
-```
-https://my-proxy.deno.dev/search?q=test
-=> Proxies to: https://example.com/search?q=test
-```
+All request methods (GET, POST, etc.) and request bodies are forwarded unchanged.
 
 ## Configuration
 In `main.ts`:
 ```typescript
-const TARGET_HOST = "example.com"; // Change to your target website
+const TARGET_HOST = "ygpy.net"; // Change to your target website
 ```
-
-## Security Notes
-- Proxy server filters sensitive request headers
-- CORS support enabled for all requests
-- Recommended to add appropriate access control in production
 
 ## Important Notes
 1. Ensure you have permission to access and proxy the target website
